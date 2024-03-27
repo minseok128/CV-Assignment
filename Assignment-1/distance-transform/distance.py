@@ -31,42 +31,32 @@ def get_value(image, i, j, forward, func):
 	return func(image[i][j], image[i1][j1], image[i2][j2], image[i3][j3], image[i4][j4])
 
 # 이미지 파일 이름 설정
-image_name = "distance-3.png"
+image_name = "distance-4.png"
 # 이미지를 그레이스케일로 읽기
 image_o = cv2.imread(image_name, cv2.IMREAD_GRAYSCALE)
 HEIGHT, WIDTH = image_o.shape[0], image_o.shape[1]
 print(WIDTH, HEIGHT)
 
 image_euc = np.zeros_like(image_o, dtype='float64')
-for i in range(0, HEIGHT):
-	for j in range(0, WIDTH):
+for j in range(0, WIDTH):
+	for i in range(0, HEIGHT):
 		if image_o[i][j] == 255:
-			image_euc[i][j] = 255
+			image_euc[i][j] = 255.0
 		else:
-			image_euc[i][j] = 0
+			image_euc[i][j] = 0.0
 image_cty = copy.deepcopy(image_euc)
 image_chs = copy.deepcopy(image_euc)
 
-for i in range(0, HEIGHT):
-	for j in range(0, WIDTH):
+for j in range(0, WIDTH):
+	for i in range(0, HEIGHT):
 		image_euc[i][j] = get_value(image_euc, i, j, 1, euclidean)
 		image_cty[i][j] = get_value(image_cty, i, j, 1, city_block)
 		image_chs[i][j] = get_value(image_chs, i, j, 1, chess_board)
-for i in range(HEIGHT - 1, -1, -1):
-	for j in range(WIDTH - 1, -1, -1):
+for j in range(WIDTH - 1, -1, -1):
+	for i in range(HEIGHT - 1, -1, -1):
 		image_euc[i][j] = get_value(image_euc, i, j, -1, euclidean)
 		image_cty[i][j] = get_value(image_cty, i, j, -1, city_block)
 		image_chs[i][j] = get_value(image_chs, i, j, -1, chess_board)
-# for i in reversed(range(0, HEIGHT)):
-# 	for j in reversed(range(0, WIDTH)):
-# 		image_euc[i][j] = get_value(image_euc, i, j, 1, euclidean)
-# 		image_cty[i][j] = get_value(image_cty, i, j, 1, city_block)
-# 		image_chs[i][j] = get_value(image_chs, i, j, 1, chess_board)
-# for i in reversed(range(HEIGHT - 1, -1, -1)):
-# 	for j in reversed(range(WIDTH - 1, -1, -1)):
-# 		image_euc[i][j] = get_value(image_euc, i, j, -1, euclidean)
-# 		image_cty[i][j] = get_value(image_cty, i, j, -1, city_block)
-# 		image_chs[i][j] = get_value(image_chs, i, j, -1, chess_board)
 
 
 cv2.normalize(image_euc, image_euc, 0, 255, cv2.NORM_MINMAX)
