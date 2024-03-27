@@ -1,2 +1,2 @@
 # CV-Assignment
-in CAU 2024
+in 2024
