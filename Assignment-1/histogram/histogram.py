@@ -30,7 +30,6 @@ cdf = np.round((cdf * (L - 1)) / (image_o.shape[0] * image_o.shape[1])).astype('
 image_e = copy.deepcopy(image_o)
 for i in range(image_e.shape[0]):
     for j in range(image_e.shape[1]):
-        # 히스토그램 평활화 적용
         image_e[i][j] = cdf[int(image_e[i][j])]
 
 # Equalized 이미지의 히스토그램 계산
