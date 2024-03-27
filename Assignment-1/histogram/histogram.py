@@ -1,3 +1,5 @@
+import warnings
+warnings.filterwarnings('ignore')
 import cv2
 import copy
 import numpy as np
@@ -24,13 +26,13 @@ for i in range(1, L):
     cdf[i] = cdf[i - 1] + cdf[i]
 
 # CDF 정규화 및 정수 변환
-cdf = np.round((cdf * (L - 1)) / (image_o.shape[0] * image_o.shape[1])).astype('int')
+cdf = np.round((cdf * (L - 1)) / (image_o.shape[0] * image_o.shape[1])).astype('uint8')
 
 # Equalized 이미지 생성
 image_e = copy.deepcopy(image_o)
 for i in range(image_e.shape[0]):
     for j in range(image_e.shape[1]):
-        image_e[i][j] = cdf[int(image_e[i][j])]
+        image_e[i][j] = cdf[image_e[i][j]]
 
 # Equalized 이미지의 히스토그램 계산
 hist_e = cv2.calcHist([image_e], [0], None, [L], [0, L])
@@ -48,9 +50,9 @@ plt.figure(figsize=(16, 10)), plt.subplots_adjust(hspace=0.4, wspace=0.4)
 plt.subplot(321), plt.imshow(image_o, 'gray'), plt.title('Original image')
 plt.subplot(322), plt.imshow(image_e, 'gray'), plt.title('Equalized image')
 
-plt.subplot(325), plt.plot(cdf), plt.title('Original cdf * (L - 1)')
-plt.subplot(326), plt.plot(cdf_e), plt.title('Equalized cdf * (L - 1)')
-
 plt.subplot(323), plt.bar(range(L), hist.ravel(), color='red'), plt.title('Original histogram')
 plt.subplot(324), plt.bar(range(L), hist_e.ravel()), plt.title('Equalized histogram')
+
+plt.subplot(325), plt.plot(cdf), plt.title('Original cdf * (L - 1)')
+plt.subplot(326), plt.plot(cdf_e), plt.title('Equalized cdf * (L - 1)')
 plt.show()
