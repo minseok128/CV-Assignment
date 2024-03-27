@@ -26,25 +26,25 @@ for i in range(1, L):
 # CDF 정규화 및 정수 변환
 cdf = np.round((cdf * (L - 1)) / (image_o.shape[0] * image_o.shape[1])).astype('int')
 
-# 평활화된 이미지 생성
+# Equalized 이미지 생성
 image_e = copy.deepcopy(image_o)
 for i in range(image_e.shape[0]):
     for j in range(image_e.shape[1]):
         # 히스토그램 평활화 적용
         image_e[i][j] = cdf[int(image_e[i][j])]
 
-# 평활화된 이미지의 히스토그램 계산
+# Equalized 이미지의 히스토그램 계산
 hist_e = cv2.calcHist([image_e], [0], None, [L], [0, L])
 
-# 평활화된 이미지의 CDF 계산
+# Equalized 이미지의 CDF 계산
 cdf_e = copy.deepcopy(hist_e)
 for i in range(1, L):
     cdf_e[i] = cdf_e[i - 1] + cdf_e[i]
 
-# 평활화된 이미지의 CDF 정규화
+# Equalized 이미지의 CDF 정규화
 cdf_e = np.round((cdf_e * (L - 1)) / (image_e.shape[0] * image_e.shape[1]))
 
-# 결과 이미지와 히스토그램, CDF 표시
+# 결과 표시
 plt.figure(figsize=(16, 10)), plt.subplots_adjust(hspace=0.4, wspace=0.4)
 plt.subplot(321), plt.imshow(image_o, 'gray'), plt.title('Original image')
 plt.subplot(322), plt.imshow(image_e, 'gray'), plt.title('Equalized image')
