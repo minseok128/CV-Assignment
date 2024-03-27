@@ -55,7 +55,7 @@ image_chs = copy.deepcopy(image_euc) # 체스 보드 거리 이미지
 # 각 거리 측정 기준에 따른 거리 변환 계산
 for j in range(0, WIDTH):
     for i in range(0, HEIGHT):
-                # 각 픽셀에 대해 유클리디안, 시티 블록, 체스 보드 거리 적용
+        # 각 픽셀에 대해 유클리디안, 시티 블록, 체스 보드 거리 적용
         image_euc[i][j] = get_value(image_euc, i, j, 1, euclidean)
         image_cty[i][j] = get_value(image_cty, i, j, 1, city_block)
         image_chs[i][j] = get_value(image_chs, i, j, 1, chess_board)
