@@ -8,17 +8,14 @@ ROOT2 = 2**0.5
 
 # 유클리디안 거리 변환 함수
 def euclidean(ij, ij1, ij2, ij3, ij4):
-    # 현재 픽셀과 이웃 픽셀들 사이의 유클리디안 거리를 계산
     return min(ij, ij1 + 1.0, ij2 + ROOT2, ij3 + 1.0, ij4 + ROOT2)
 
 # 시티 블록(맨해튼) 거리 변환 함수
 def city_block(ij, ij1, ij2, ij3, ij4):
-    # 현재 픽셀과 이웃 픽셀들 사이의 시티 블록 거리를 계산
     return min(ij, ij1 + 1.0, ij2 + 2.0, ij3 + 1.0, ij4 + 2.0)
 
 # 체스 보드 거리 변환 함수
 def chess_board(ij, ij1, ij2, ij3, ij4):
-    # 현재 픽셀과 이웃 픽셀들 사이의 체스 보드 거리를 계산
     return min(ij, ij1 + 1.0, ij2 + 1.0, ij3 + 1.0, ij4 + 1.0)
 
 # 특정 거리 측정 함수를 사용하여 이미지의 픽셀 값 갱신
