@@ -41,7 +41,7 @@ def get_value(image, i, j, forward, func):
     return func(image[i][j], image[i1][j1], image[i2][j2], image[i3][j3], image[i4][j4])
 
 # 이미지 로드 및 초기 설정
-image_name = "distance-5.png"
+image_name = "distance-3.png"
 image_o = cv2.imread(image_name, cv2.IMREAD_GRAYSCALE)  # 그레이스케일로 이미지 읽기
 HEIGHT, WIDTH = image_o.shape[0], image_o.shape[1]  # 이미지의 너비와 높이
 print(WIDTH, HEIGHT)
