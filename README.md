@@ -1,4 +1,5 @@
 # CV Assignments
+![Histogram Equalization Result](result/title.png)
 
 This repository contains the source code and results for CV assignments.
 
